@@ -11,10 +11,9 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71"
-        classpath "net.corda.plugins:cordapp:5.0.12"
-        classpath "net.corda.plugins:cordformation:5.0.12"
-        classpath "net.corda.plugins:quasar-utils:5.0.12"
-
+        //classpath "net.corda.plugins:cordapp:5.0.12"
+        //classpath "net.corda.plugins:cordformation:5.0.12"
+        //classpath "net.corda.plugins:quasar-utils:5.0.12"
     }
 }
 
@@ -24,9 +23,9 @@ plugins {
 }
 
 apply plugin: 'kotlin'
-apply plugin: "net.corda.plugins.cordapp"
-apply plugin: "net.corda.plugins.cordformation"
-apply plugin: "net.corda.plugins.quasar-utils"
+//apply plugin: "net.corda.plugins.cordapp"
+//apply plugin: "net.corda.plugins.cordformation"
+//apply plugin: "net.corda.plugins.quasar-utils"
 //apply plugin: 'org.junit.platform.gradle.plugin'
 
 //name = "Corda PKI"
@@ -52,7 +51,7 @@ apply plugin: "net.corda.plugins.quasar-utils"
             languageVersion = "1.2"
             apiVersion = "1.2"
             jvmTarget = "1.8"
-            javaParameters = true
+            //javaParameters = true
         }
     }
 
@@ -66,70 +65,69 @@ apply plugin: "net.corda.plugins.quasar-utils"
 
 
 dependencies {
-    cordaCompile "net.corda:corda-core:4.7"
-    cordaRuntime "net.corda:corda-node-api:4.7"
-    cordaRuntime "net.corda:corda:4.7"
+    compile "net.corda:corda-core:4.7"
+    compile "net.corda:corda-node-api:4.7"
+    //cordaRuntime "net.corda:corda:4.7"
 
     implementation "net.corda:corda-test-utils:4.7"
-    implementation "net.corda:corda-node-driver:4.7"
 
     implementation 'com.github.mycordaapp:registry:0.0.2'
 
 }
 
 
-task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ["jar"]) {
-    //directory "./deployment/corda"
-    nodeDefaults {
-
-    }
-
-    node {
-        name "O=Notary, L=London, C=GB"
-        notary = [validating: false]
-        p2pAddress("notary:60000")
-
-        rpcSettings {
-            address 'notary:60002'
-            adminAddress 'notary:60003'
-        }
-        sshdPort 60005
-
-        projectCordapp {
-            deploy = false
-        }
-        cordapps.clear()
-    }
-
-    node {
-        name "O=Alice Pty, L=Melbourne, C=AU"
-        p2pAddress("alice:10002")
-
-        rpcSettings {
-            address 'alice:10003'
-            adminAddress 'alice:10004'
-        }
-        sshdPort 10005
-        rpcUsers = [[user: "testuser", "password": "password", "permissions": ["ALL"]]]
-        devMode true
-        runSchemaMigration = true
-
-    }
-    node {
-        name "O=Bob Ltd, L=Milton Keynes, C=GB"
-        p2pAddress("bob:10012")
-
-        rpcSettings {
-            address 'bob:10013'
-            adminAddress 'bob:10014'
-        }
-        sshdPort 10015
-        rpcUsers = [[user: "testuser", "password": "password", "permissions": ["ALL"]]]
-        devMode true
-        runSchemaMigration = true
-    }
-
-}
+//task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ["jar"]) {
+//    //directory "./deployment/corda"
+//    nodeDefaults {
+//
+//    }
+//
+//    node {
+//        name "O=Notary, L=London, C=GB"
+//        notary = [validating: false]
+//        p2pAddress("notary:60000")
+//
+//        rpcSettings {
+//            address 'notary:60002'
+//            adminAddress 'notary:60003'
+//        }
+//        sshdPort 60005
+//
+//        projectCordapp {
+//            deploy = false
+//        }
+//        cordapps.clear()
+//    }
+//
+//    node {
+//        name "O=Alice Pty, L=Melbourne, C=AU"
+//        p2pAddress("alice:10002")
+//
+//        rpcSettings {
+//            address 'alice:10003'
+//            adminAddress 'alice:10004'
+//        }
+//        sshdPort 10005
+//        rpcUsers = [[user: "testuser", "password": "password", "permissions": ["ALL"]]]
+//        devMode true
+//        runSchemaMigration = true
+//
+//    }
+//    node {
+//        name "O=Bob Ltd, L=Milton Keynes, C=GB"
+//        p2pAddress("bob:10012")
+//
+//        rpcSettings {
+//            address 'bob:10013'
+//            adminAddress 'bob:10014'
+//        }
+//        sshdPort 10015
+//        rpcUsers = [[user: "testuser", "password": "password", "permissions": ["ALL"]]]
+//        devMode true
+//        runSchemaMigration = true
+//    }
+//
+//}
 
 
 
