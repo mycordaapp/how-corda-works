@@ -43,10 +43,17 @@ openssl x509 -outform der -in ca.pem -out ca.der
 openssl req -new \
       -config node.conf \
       -keyout node.key \
-      -out node.csr \
-      -days 365
+      -out node.csr
 
-openssl x509 -req -days 365 -in node.csr -CA ca.pem -CAkey ca.key -set_serial 01  -out node.pem
+# Create cert
+openssl x509 \
+      -signkey node.key \
+      -in node.csr \
+      -req -days 365 -out node.pem \
+      -extfile node.conf -extensions req_ext
+
+
+#openssl x509 -req -days 365 -in node.csr -CA ca.pem -CAkey ca.key -set_serial 01  -out node.pem
 
 # View cert
 openssl x509 -in node.pem -text
